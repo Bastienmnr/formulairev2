@@ -1,0 +1,59 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5%;
+  background-color: rgba(254, 254, 254, 0.85);
+  color: #00718d;
+}
+
+body {
+  background-color: #00718d;
+  font-size: 140%;
+  color: #ebf4f7;
+}
+
+h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #dfedf1;
+}
+
+div {
+  margin: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+#radio {
+  right: 30px;
+}
+
+#checkbox {
+  display: flex;
+  justify-content: center; /* Add this line */
+}
+
+select {
+  align-items: center;
+}
+
+button {
+  display: block;
+  margin: 0 auto; /* Add this line */
+}
+
+
+
+  input[type="radio"], input[type="checkbox"] {
+    display: inline-block !important;
+    margin-right: 10px !important;
+  }
+  
+  label {
+    width: auto !important;
+  }
+  
