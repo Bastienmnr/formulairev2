@@ -6,16 +6,6 @@ require_once 'controller.php';
 // Appeler la fonction connectBdd() pour établir la connexion à la base de données
 $pdo = connectBdd();
 
-// Insérer le nouveau formulaire dans la table form
-$query = "INSERT INTO form (date_ajout) VALUES (NOW())";
-$pdo->exec($query);
-
-// Récupérer l'ID du formulaire en cours
-$form_id = $pdo->lastInsertId();
-
-// Stocker l'ID du formulaire en cours dans une variable de session
-$_SESSION['form_id'] = $form_id;
-
 // Construire la requête SQL pour récupérer les questions
 $query = "SELECT * FROM question";
 
@@ -31,23 +21,27 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $choix = explode(',', $row['choix']);
     $intitule = $row['intitule'];
 
-    echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
+    echo "<div class='question'>";
+
 
     // Générer les éléments du formulaire en fonction du type de question
     switch ($type) {
         case 'checkbox':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
             foreach ($choix as $choice) {
                 echo "<input type='checkbox' id='answer_{$row['id_question']}' name='answer_{$row['id_question']}[]' value='" . htmlspecialchars($choice) . "' > $choice<br>";
             }
             echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
             break;
         case 'radio':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
             foreach ($choix as $choice) {
                 echo "<input type='radio' id='answer_{$row['id_question']}' name='answer_{$row['id_question']}' value='" . htmlspecialchars($choice) . "' > $choice<br>";
             }
             echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
             break;
         case 'select':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
             echo "<select id='answer_{$row['id_question']}' name='answer_{$row['id_question']}' >";
             foreach ($choix as $choice) {
                 echo "<option value='" . htmlspecialchars($choice) . "'>$choice</option>";
@@ -56,24 +50,32 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
             break;
         case 'texte':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
             echo "<input type='text' id='answer_{$row['id_question']}' name='answer_{$row['id_question']}' ><br>";
             echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
             break;
         case 'nombre':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
             echo "<input type='number' id='answer_{$row['id_question']}' name='answer_{$row['id_question']}' ><br>";
             echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
             break;
         case 'file':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
             echo "<input type='file' id='answer_{$row['id_question']}' name='answer_{$row['id_question']}'><br>";
             echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
             break;
+        case 'range':
+            echo "<label for='answer_{$row['id_question']}' class='answer-label'>$intitule</label><br>";
+            list($min, $max) = explode(',', $row['choix']);
+            $default = ($min + $max) / 2;
+            echo "<input type='range' min='$min' max='$max' value='$default' step='1' id='answer_{$row['id_question']}' name='answer_{$row['id_question']}'><br>";
+            echo "<input type='hidden' id='type_{$row['id_question']}' name='type_{$row['id_question']}' value='$type'>";
+            break;
+               
     }
-    echo "<br>";
+    echo "</div><br>";
 }
 
 echo "<input type='submit' value='Envoyer'>";
 echo "</form>";
-
-
-
 ?>

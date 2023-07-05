@@ -1,15 +1,29 @@
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 5%;
-  background-color: rgba(254, 254, 254, 0.85);
+  align-items: left;
+  background-color: rgba(248, 243, 243, 0.9);
   color: #00718d;
+  font-family: Inter, sans-serif;
+}
+
+@media (orientation: portrait) {
+  form {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media (orientation: landscape) {
+  form {
+    width: 66.66%;
+    margin: auto;
+  }
 }
 
 body {
   background-color: #00718d;
-  font-size: 140%;
+  font-size: 120%;
   color: #ebf4f7;
 }
 
@@ -17,43 +31,39 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #dfedf1;
+  color: #eaf0f2;
 }
 
 div {
-  margin: 10px;
+  margin: 50px;
 }
 
 label {
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 #radio {
-  right: 30px;
+
 }
 
 #checkbox {
-  display: flex;
-  justify-content: center; /* Add this line */
+
 }
 
 select {
-  align-items: center;
+  
 }
 
 button {
-  display: block;
-  margin: 0 auto; /* Add this line */
+
+}
+
+input[type='text'] {
+  margin-bottom: 20px;
 }
 
 
 
-  input[type="radio"], input[type="checkbox"] {
-    display: inline-block !important;
-    margin-right: 10px !important;
-  }
-  
-  label {
-    width: auto !important;
-  }
-  
+
+
