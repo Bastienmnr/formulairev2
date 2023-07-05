@@ -7,7 +7,7 @@ require_once 'controller.php';
 $pdo = connectBdd();
 
 // Construire la requête SQL pour récupérer les questions
-$query = "SELECT * FROM question";
+$query = "SELECT * FROM question WHERE num_formulaire=1";
 
 // Exécuter la requête et récupérer les résultats
 $result = $pdo->query($query);
